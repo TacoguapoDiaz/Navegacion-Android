@@ -1,0 +1,179 @@
+<resources><!-- General -->
+    <string name="app_name">MoveRentals2</string>
+    <string name="loading">LOADING…</string>
+    <string name="or">Or</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Login Screen -->
+    <string name="sign_in">SIGN IN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">LOG IN</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="sign_up_button">Button</string>
+
+    <!-- Registration Screen -->
+    <string name="registration">Registration</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last Name</string>
+    <string name="user_name">User Name</string>
+    <string name="register">Register</string>
+
+    <!-- Car List Screen -->
+    <string name="location">Location…</string>
+    <string name="filter">Filter</string>
+    <string name="car_card_city">City: %1$s</string>
+    <string name="car_card_owner">Owner: %1$s</string>
+    <string name="price_per_day">Price per day</string>
+    <string name="price_format">%1$dmx</string>
+    <string name="nav_upload">Upload</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Filter Screen -->
+    <string name="back_to_filters">Filter</string>
+    <string name="popular_filters">Popular Filters</string>
+    <string name="auto_transmission">Automatic Transmission</string>
+    <string name="medium_cars">Medium Cars</string>
+    <string name="five_stars">5 stars</string>
+    <string name="special_offers">Special offers</string>
+    <string name="discount">Discount</string>
+    <string name="instant_confirmation">Instant Confirmation</string>
+    <string name="price_range">Price Range</string>
+    <string name="minimum">Minimum</string>
+    <string name="maximum">Maximum</string>
+    <string name="transmission_type">Transmission Type</string>
+    <string name="manual_transmission">Manual Transmission</string>
+    <string name="number_of_doors">Number of Doors</string>
+    <string name="zero_doors">0 Doors</string>
+    <string name="two_doors">2 Doors</string>
+    <string name="four_doors">4 Doors</string>
+
+    <!-- Car Detail Screen -->
+    <string name="car_details_back">Back</string>
+    <string name="contact_owner">Contact with the Owner</string>
+    <string name="pick_up">Pick Up</string>
+    <string name="map">Map</string>
+    <string name="review_title">Review title</string>
+    <string name="review_body">Review body</string>
+    <string name="reviewer_name">Reviewer name</string>
+    <string name="date">Date</string>
+    <string name="per_day">per day</string>
+
+    <!-- Rental Conditions Screen -->
+    <string name="rental_conditions_title">Rental Conditions</string>
+    <string name="rental_conditions">Rental Conditions</string>
+
+    <!-- Add Review Screen -->
+    <string name="add_review">Add Review</string>
+    <string name="reviewer_placeholder">Ritual</string>
+    <string name="write_review_placeholder">Write…</string>
+
+    <!-- Order Summary Screen -->
+    <string name="order_summary">Order Summary</string>
+    <string name="selected_days">Selected Days</string>
+    <string name="date_label">Date</string>
+    <string name="total_price">Total Price</string>
+    <string name="details">Details</string>
+    <string name="rent">Rent</string>
+
+    <!-- Date Picker Dialog -->
+    <string name="date_picker_title">Select Date</string>
+    <string name="date_picker_ok">OK</string>
+
+    <!-- Order Summary Screen (Details) -->
+    <string name="rental_days">Rental days…</string>
+    <string name="price_with_value">Price $%1$.2fmxn</string>
+
+    <!-- Payment Method Screen -->
+    <string name="payment_method">Payment Method</string>
+    <string name="credit_debit_card">CREDIT / DEBIT CARD</string>
+    <string name="card_number">Card Number</string>
+    <string name="card_expiry">MM/YY</string>
+    <string name="card_cvv">CVV</string>
+    <string name="card_holder_name">Cardholder Name</string>
+    <string name="other_options">OTHER OPTIONS</string>
+    <string name="pay_with_paypal">Pay with PayPal</string>
+    <string name="pay">Pay</string>
+
+    <!-- PayPal Screen -->
+    <string name="paypal_login">PayPal Login</string>
+
+    <!-- Payment Success Screen -->
+    <string name="payment_authorized">Payment Authorized</string>
+    <string name="rental_done">Rental Done</string>
+    <string name="my_rentals">My Rentals</string>
+
+    <!-- Upload Car Flow -->
+    <string name="next">Next</string>
+    <string name="publish">Publish</string>
+    <string name="vehicle_type">Vehicle Type</string>
+    <string name="vehicle_type_placeholder">Car or van</string>
+    <string name="year">Year</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="model">Model</string>
+    <string name="receive_offers">Receive offers</string>
+    <string name="receive_offers_desc">The client will be able to offer a higher or lower price if they wish</string>
+    <string name="price_range_desc">Prices should be in the local currency and the cost must be per day</string>
+    <string name="rental_start_date">Rental start date</string>
+    <string name="description">Description</string>
+    <string name="description_placeholder">Body type: 5-door Hatchback...</string>
+    <string name="ad_published">Ad Published</string>
+    <string name="thank_you_preference">Thank you for your preference</string>
+    <string name="exit">Exit</string>
+    <string name="edit_publication">Edit publication</string>
+
+    <!-- Favorites & Recently Viewed -->
+    <string name="recently_viewed">Recently Viewed</string>
+    <string name="favorites_title">Favorites</string>
+    <string name="no_cars_viewed">No car has been visited</string>
+    <string name="no_cars_viewed_desc">Recently visited cars will appear here, but it seems you haven\'t seen any yet</string>
+    <string name="start_exploring">Start exploring</string>
+    <string name="today">Today</string>
+    <string name="no_favorites_yet">No saved cars yet</string>
+    <string name="no_favorites_yet_desc">The cars you save to your favorites will appear here, but it seems you haven\'t saved any yet</string>
+
+    <string name="messages">Messages</string>
+    <string name="all">All</string>
+    <string name="renter">Renter</string>
+    <string name="assistance">Assistance</string>
+    <string name="no_conversations">No conversations</string>
+    <string name="no_conversations_desc">You don\'t have any conversation started yet</string>
+    <string name="last_message_days">Last message: %d days ago</string>
+    <string name="last_message_yesterday">Last message: Yesterday</string>
+    <string name="customer_assistance">Customer Assistance</string>
+    <string name="type_message">Type a message</string>
+
+    <!-- Profile & Settings -->
+    <string name="profile">Profile</string>
+    <string name="user_bio">I am a person with a great sense of responsibility</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="identification">Identification</string>
+    <string name="drivers_license">Driver\'s license</string>
+    <string name="support">Support</string>
+    <string name="rental_history">Rental History</string>
+    <string name="offers">Offers</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notifications">Notifications</string>
+    <string name="language">Language</string>
+    <string name="currency">Currency</string>
+    <string name="see_details">See</string>
+    <string name="contact_us">Contact us</string>
+    <string name="activate">Activate</string>
+    <string name="spanish">Spanish</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
+    <string name="russian">Russian</string>
+    <string name="japanese">Japanese</string>
+    <string name="chinese">Chinese</string>
+    <string name="pesos">Pesos (mex)</string>
+    <string name="dollars">Dollars</string>
+    <string name="euros">Euros</string>
+    <string name="settings_title">Filter</string>
+
+
+</resources>
+
+
