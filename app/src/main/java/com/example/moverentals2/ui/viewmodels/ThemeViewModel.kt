@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class ThemeViewModel(application: Application) : AndroidViewModel(application) {
     private val settingsDataStore = SettingsDataStore(application)
 
-    // Expone el estado del modo oscuro como un StateFlow
+
     val isDarkMode: StateFlow<Boolean> = settingsDataStore.isDarkMode
         .stateIn(
             scope = viewModelScope,
@@ -20,7 +20,7 @@ class ThemeViewModel(application: Application) : AndroidViewModel(application) {
             initialValue = false
         )
 
-    // Función para cambiar el estado
+
     fun setDarkMode(isDark: Boolean) {
         viewModelScope.launch {
             settingsDataStore.setDarkMode(isDark)

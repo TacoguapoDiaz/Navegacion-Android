@@ -15,3 +15,5 @@ val AppRedCancel = Color(0xFFFF8A80)
 val AppLightBlueRegister = Color(0xFF8ECAE6)
 val AppTextFieldBackground = Color(0xFFF7F7F7)
 val AppWhite = Color.White
+val BlueStart = Color(0xFF1E3A8A) // Un azul oscuro
+val BlueEnd = Color(0xFF3B82F6)   // Un azul más claro

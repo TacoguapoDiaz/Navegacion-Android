@@ -1,175 +1,155 @@
-package drawable.screens
+package com.example.moverentals2.ui.screens
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.example.moverentals2.R
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.safeDrawing
+import com.example.moverentals2.ui.viewmodels.OrderViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OrderSummaryScreen(navController: NavController) {
-    // Estados para controlar la visibilidad del Date Picker y los detalles
-    var showDatePicker by remember { mutableStateOf(false) }
-    var showDetails by remember { mutableStateOf(false) }
+fun PaymentMethodScreen(
+    navController: NavController,
+    orderViewModel: OrderViewModel // Compartido
+) {
+    val uiState by orderViewModel.uiState.collectAsState()
+
+    // --- ESTADOS PARA LOS CAMPOS DEL FORMULARIO ---
+    var cardNumber by remember { mutableStateOf("") }
+    var expiryDate by remember { mutableStateOf("") }
+    var cvv by remember { mutableStateOf("") }
+    var cardholderName by remember { mutableStateOf("") }
+
+    // --- LÓGICA PARA HABILITAR EL BOTÓN ---
+    val isFormComplete = cardNumber.isNotBlank() && expiryDate.isNotBlank() && cvv.isNotBlank() && cardholderName.isNotBlank()
+
+    // Navegar a la pantalla de éxito cuando el alquiler se complete
+    LaunchedEffect(uiState.rentalSuccess) {
+        if (uiState.rentalSuccess) {
+            navController.navigate("rental_success") {
+                // Limpiar el backstack para no volver a las pantallas de pago
+                popUpTo(navController.graph.findStartDestination().id)
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.order_summary), fontWeight = FontWeight.Bold) },
+                title = { Text("Payment Method") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_arrow_back),
-                            contentDescription = stringResource(R.string.car_details_back)
-                        )
+                        Icon(painterResource(id = R.drawable.ic_arrow_back), contentDescription = "Go back")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFFD90429), // Rojo
+                    containerColor = Color(0xFFD32F2F),
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White
                 )
             )
-        },
-        // Aplicamos el padding de WindowInsets aquí
-        modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)
+        }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(Color(0xFF8ECAE6)) // Fondo azul claro
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.nissan_versa),
-                contentDescription = "Nissan Versa",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .clip(RoundedCornerShape(20.dp)),
-                contentScale = ContentScale.Crop
+        Column(modifier = Modifier.padding(innerPadding).padding(16.dp).fillMaxSize()) {
+            Text("CREDIT / DEBIT CARD", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Color.Gray)
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // --- FORMULARIO CONECTADO A LOS ESTADOS ---
+            OutlinedTextField(
+                value = cardNumber,
+                onValueChange = { cardNumber = it },
+                label = { Text("Card Number") },
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                SummaryButton(text = stringResource(id = R.string.selected_days), isBig = true, onClick = {})
-                // El botón de Fecha ahora controla el estado del Date Picker
-                SummaryButton(text = stringResource(id = R.string.date_label), isBig = false, onClick = { showDatePicker = true })
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedTextField(
+                    value = expiryDate,
+                    onValueChange = { expiryDate = it },
+                    label = { Text("MM/YY") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                OutlinedTextField(
+                    value = cvv,
+                    onValueChange = { cvv = it },
+                    label = { Text("CVV") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
             }
-
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = cardholderName,
+                onValueChange = { cardholderName = it },
+                label = { Text("Cardholder Name") },
+                modifier = Modifier.fillMaxWidth()
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
+            // --- AQUÍ IRÍAN TUS ICONOS DE TARJETAS ---
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                SummaryButton(text = stringResource(id = R.string.total_price), isBig = true, onClick = {})
-                // El botón de Detalles ahora controla su propia visibilidad
-                SummaryButton(text = stringResource(id = R.string.details), isBig = false, onClick = { showDetails = !showDetails })
+                // Si tienes tus iconos de visa, mastercard, etc. en drawable, ponlos aquí.
+                // Esta es una imagen de ejemplo.
+                Image(
+                    painter = painterResource(id = R.drawable.ic_visa),
+                    contentDescription = "Card Types",
+                    modifier = Modifier.height(60.dp)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_mastercard),
+                    contentDescription = "Card Types",
+                    modifier = Modifier.height(60.dp)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_apple_pay),
+                    contentDescription = "Card Types",
+                    modifier = Modifier.height(60.dp)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_amex),
+                    contentDescription = "Card Types",
+                    modifier = Modifier.height(60.dp)
+                )
             }
 
-            // --- Sección de Detalles (Aparece y desaparece) ---
-            AnimatedVisibility(visible = showDetails) {
-                Card(
-                    modifier = Modifier.padding(top = 24.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.7f))
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(stringResource(R.string.details), fontWeight = FontWeight.Bold)
-                        Text(stringResource(R.string.rental_days))
-                        Text(stringResource(R.string.price_with_value, 0.00))
-                    }
-                }
-            }
+            Spacer(modifier = Modifier.weight(1f))
 
-
-            Spacer(modifier = Modifier.weight(1f)) // Espacio flexible
-
-            Text("$0.00mx", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
-            Spacer(modifier = Modifier.height(16.dp))
-
+            // Botón Pagar final
             Button(
-                onClick = { navController.navigate("payment_method") },
-                modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .height(50.dp),
+                onClick = { orderViewModel.processRental() },
+                modifier = Modifier.fillMaxWidth().height(50.dp),
+                // --- BOTÓN HABILITADO SEGÚN LA LÓGICA ---
+                enabled = !uiState.isProcessingPayment && isFormComplete,
                 shape = RoundedCornerShape(50),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF8A80))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF87CEEB)) // Azul cielo
             ) {
-                Text(stringResource(id = R.string.pay), fontSize = 18.sp, color = Color.Black)
-            }
-        }
-    }
-
-    // --- Date Picker Dialog ---
-    // Se mostrará como un diálogo sobre la pantalla actual cuando showDatePicker sea true
-    if (showDatePicker) {
-        val datePickerState = rememberDatePickerState()
-        DatePickerDialog(
-            onDismissRequest = { showDatePicker = false },
-            confirmButton = {
-                TextButton(onClick = {
-                    showDatePicker = false
-                    // Aquí podrías usar la fecha seleccionada: datePickerState.selectedDateMillis
-                }) {
-                    Text(stringResource(R.string.date_picker_ok))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) {
-                    Text(stringResource(R.string.cancel))
+                if (uiState.isProcessingPayment) {
+                    CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.White)
+                } else {
+                    Text("Pay", fontSize = 18.sp, color = Color.White)
                 }
             }
-        ) {
-            DatePicker(
-                state = datePickerState,
-                title = {
-                    Text(stringResource(R.string.date_picker_title), modifier = Modifier.padding(16.dp))
-                }
-            )
         }
-    }
-}
-
-// Este Composable ya lo tenías, pero es bueno tenerlo en el mismo archivo para que esté completo
-@Composable
-fun RowScope.SummaryButton(text: String, isBig: Boolean, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .weight(if (isBig) 0.6f else 0.4f)
-            .height(60.dp),
-        shape = RoundedCornerShape(50),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = if (isBig) Color.White.copy(alpha = 0.8f) else Color(0xFFFF8A80)
-        )
-    ) {
-        Text(text, color = Color.Black, fontSize = if (isBig) 16.sp else 14.sp)
     }
 }

@@ -1,4 +1,4 @@
-package drawable.screens
+package com.example.moverentals2.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.LinearProgressIndicator

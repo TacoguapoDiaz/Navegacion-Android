@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/move_rentals1_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoveRentals2">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCmIDu1-YTzWcisT7XWRPJNrVgO0m5c2HM" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

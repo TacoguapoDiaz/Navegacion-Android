@@ -1,144 +1,125 @@
-package drawable.screens
+package com.example.moverentals2.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.moverentals2.R
-import com.example.moverentals2.ui.theme.AppLightBlueRegister
-import com.example.moverentals2.ui.theme.AppRedCancel
+import com.example.moverentals2.ui.viewmodels.CarDetailViewModel
 
-@androidx.compose.runtime.Composable
-fun AddReviewScreen(navController: androidx.navigation.NavController) {
-    // CORRECCIÓN: Se añadió .windowInsetsPadding(WindowInsets.safeDrawing)
-    _root_ide_package_.androidx.compose.foundation.layout.Column(
-        modifier = _root_ide_package_.androidx.compose.ui.Modifier.Companion
-            .fillMaxSize()
-            .windowInsetsPadding(_root_ide_package_.androidx.compose.foundation.layout.WindowInsets.Companion.safeDrawing)
-    ) {
-        // Barra superior azul
-        _root_ide_package_.androidx.compose.material3.Surface(
-            color = _root_ide_package_.com.example.moverentals2.ui.theme.AppLightBlueRegister, // Azul claro
-            contentColor = _root_ide_package_.androidx.compose.ui.graphics.Color.Companion.White
-        ) {
-            _root_ide_package_.androidx.compose.foundation.layout.Row(
-                modifier = _root_ide_package_.androidx.compose.ui.Modifier.Companion
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 4.dp),
-                verticalAlignment = _root_ide_package_.androidx.compose.ui.Alignment.Companion.CenterVertically
-            ) {
-                _root_ide_package_.androidx.compose.material3.IconButton(onClick = { navController.popBackStack() }) {
-                    _root_ide_package_.androidx.compose.material3.Icon(
-                        painter = _root_ide_package_.androidx.compose.ui.res.painterResource(id = _root_ide_package_.com.example.moverentals2.R.drawable.ic_arrow_back),
-                        contentDescription = _root_ide_package_.androidx.compose.ui.res.stringResource(
-                            _root_ide_package_.com.example.moverentals2.R.string.car_details_back
-                        ),
-                        tint = _root_ide_package_.androidx.compose.ui.graphics.Color.Companion.White
-                    )
-                }
-                _root_ide_package_.androidx.compose.foundation.layout.Spacer(
-                    modifier = _root_ide_package_.androidx.compose.ui.Modifier.Companion.width(
-                        8.dp
-                    )
-                )
-                _root_ide_package_.androidx.compose.material3.Text(
-                    text = _root_ide_package_.androidx.compose.ui.res.stringResource(
-                        _root_ide_package_.com.example.moverentals2.R.string.add_review
-                    ),
-                    fontSize = 20.sp,
-                    fontWeight = _root_ide_package_.androidx.compose.ui.text.font.FontWeight.Companion.Bold
-                )
-            }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AddReviewScreen(
+    navController: NavController,
+    carDetailViewModel: CarDetailViewModel
+) {
+    val uiState by carDetailViewModel.uiState.collectAsState()
+    val context = LocalContext.current
+
+    var rating by remember { mutableStateOf(0) }
+    var title by remember { mutableStateOf("") }
+    var body by remember { mutableStateOf("") }
+
+    // --- USA LOS NOMBRES DEL VIEWMODEL CORREGIDO ---
+    LaunchedEffect(uiState.reviewSubmitted) {
+        if (uiState.reviewSubmitted) {
+            Toast.makeText(context, "Review published!", Toast.LENGTH_SHORT).show()
+            carDetailViewModel.resetReviewSubmissionStatus() // Limpiar el estado
+            navController.popBackStack()
         }
+    }
 
-        // Contenido de la pantalla
-        _root_ide_package_.androidx.compose.foundation.layout.Column(
-            modifier = _root_ide_package_.androidx.compose.ui.Modifier.Companion
-                .fillMaxSize()
-                .padding(16.dp),
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Add Review", fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Go back")
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(16.dp)
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Fila del usuario
-            OutlinedTextField(
-                value = stringResource(id = R.string.reviewer_placeholder),
-                onValueChange = {},
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(50),
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_person),
-                        contentDescription = null,
-                        modifier = Modifier.size(28.dp) // Tamaño ajustado del icono
-                    )
-                }
-            )
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Fila de las estrellas
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                repeat(5) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_star),
-                        contentDescription = null,
-                        modifier = Modifier.size(36.dp), // Tamaño de las estrellas
-                        tint = Color.Gray
-                    )
+            Row(modifier = Modifier.padding(vertical = 16.dp)) {
+                (1..5).forEach { index ->
+                    IconButton(onClick = { rating = index }) {
+                        Icon(
+                            imageVector = if (index <= rating) Icons.Filled.Star else Icons.Outlined.StarOutline,
+                            contentDescription = "Rate $index",
+                            tint = if (index <= rating) Color(0xFFFFC107) else Color.Gray,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Campo de texto para la reseña
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f), // Ocupa el espacio disponible
-                placeholder = { Text(text = stringResource(R.string.write_review_placeholder)) },
+                value = title,
+                onValueChange = { title = it },
+                label = { Text("Review Title") },
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp)
             )
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = body,
+                onValueChange = { body = it },
+                label = { Text("Write your experience...") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                shape = RoundedCornerShape(16.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Botones de acción
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                val buttonModifier = Modifier.width(140.dp).height(50.dp)
-                Button(
-                    onClick = { /* TODO: Lógica de publicar */ },
-                    modifier = buttonModifier,
-                    shape = RoundedCornerShape(50),
-                    colors = ButtonDefaults.buttonColors(containerColor = AppLightBlueRegister)
-                ) {
-                    Text(stringResource(R.string.publish), color = Color.White)
-                }
                 Button(
                     onClick = { navController.popBackStack() },
-                    modifier = buttonModifier,
+                    modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(50),
-                    colors = ButtonDefaults.buttonColors(containerColor = AppRedCancel)
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF44336))
                 ) {
-                    Text(stringResource(R.string.cancel), color = Color.White)
+                    Text("Cancel", color = Color.White)
+                }
+                Button(
+                    onClick = {
+                        carDetailViewModel.submitReview(rating.toFloat(), title, body)
+                    },
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(50),
+                    // --- USA LOS NOMBRES DEL VIEWMODEL CORREGIDO ---
+                    enabled = !uiState.isSubmittingReview && rating > 0 && body.isNotBlank()
+                ) {
+                    if (uiState.isSubmittingReview) {
+                        CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.White)
+                    } else {
+                        Text("Publish")
+                    }
                 }
             }
         }

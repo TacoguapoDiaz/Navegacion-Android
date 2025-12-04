@@ -15,9 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moverentals2.R
-import com.example.moverentals2.ui.screensimport.TopBar
-
-// --- CORRECCIÓN: Se elimina la importación incorrecta de TopBar ---
+import com.example.moverentals2.ui.screens.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,7 +26,6 @@ fun SupportScreen(navController: NavController) {
             .padding(innerPadding)
             .padding(16.dp)) {
             LazyColumn(modifier = Modifier.weight(1f)) {
-                // --- CORRECCIÓN: Se implementa el contenido de la lista ---
                 item { SupportItem(text = "No se refleja el pago") }
                 item { SupportItem(text = "No tengo contacto con el cliente") }
                 item { SupportItem(text = "Reclamo") }
@@ -48,7 +45,6 @@ fun SupportScreen(navController: NavController) {
     }
 }
 
-// --- CORRECCIÓN: Se implementa el Composable SupportItem ---
 @Composable
 fun SupportItem(text: String) {
     Surface(

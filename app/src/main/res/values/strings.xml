@@ -1,18 +1,22 @@
-<resources><!-- General -->
+<resources>
+    <!-- General -->
     <string name="app_name">MoveRentals2</string>
-    <string name="loading">LOADING…</string>
-    <string name="or">Or</string>
+    <string name="loading">LOADING…</string><string name="or">Or</string>
     <string name="cancel">Cancel</string>
+    <string name="back_button_desc">Back</string>
 
-    <!-- Login Screen -->
+    <!-- Login & Registration (ACTUALIZADO Y CORREGIDO) -->
     <string name="sign_in">SIGN IN</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="log_in">LOG IN</string>
-    <string name="dont_have_account">Don\'t have an account?</string>
-    <string name="sign_up_button">Button</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login_button">SIGN IN</string>
+    <string name="register_button">REGISTER</string>
+    <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="create_account">Create an Account</string>
+    <string name="register_prompt">Don\'t have an account? Register</string>
 
-    <!-- Registration Screen -->
+    <!-- Registration Screen (Tus strings originales) -->
     <string name="registration">Registration</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last Name</string>
@@ -25,7 +29,7 @@
     <string name="car_card_city">City: %1$s</string>
     <string name="car_card_owner">Owner: %1$s</string>
     <string name="price_per_day">Price per day</string>
-    <string name="price_format">%1$dmx</string>
+    <string name="price_format">%1$d USD</string>
     <string name="nav_upload">Upload</string>
     <string name="nav_favorites">Favorites</string>
     <string name="nav_search">Search</string>
@@ -85,7 +89,7 @@
 
     <!-- Order Summary Screen (Details) -->
     <string name="rental_days">Rental days…</string>
-    <string name="price_with_value">Price $%1$.2fmxn</string>
+    <string name="price_with_value">Price $%1$.2f USD</string>
 
     <!-- Payment Method Screen -->
     <string name="payment_method">Payment Method</string>
@@ -135,6 +139,7 @@
     <string name="no_favorites_yet">No saved cars yet</string>
     <string name="no_favorites_yet_desc">The cars you save to your favorites will appear here, but it seems you haven\'t saved any yet</string>
 
+    <!-- Messages Screen -->
     <string name="messages">Messages</string>
     <string name="all">All</string>
     <string name="renter">Renter</string>
@@ -168,12 +173,8 @@
     <string name="russian">Russian</string>
     <string name="japanese">Japanese</string>
     <string name="chinese">Chinese</string>
-    <string name="pesos">Pesos (mex)</string>
+    <string name="pesos">Pesos (MXN)</string>
     <string name="dollars">Dollars</string>
     <string name="euros">Euros</string>
     <string name="settings_title">Filter</string>
-
-
 </resources>
-
-

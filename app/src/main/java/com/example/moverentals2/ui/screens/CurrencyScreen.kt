@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moverentals2.R
-import com.example.moverentals2.ui.screensimport.TopBar
+import com.example.moverentals2.ui.screens.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
